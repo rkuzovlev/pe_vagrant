@@ -1,0 +1,1 @@
+{"virtualbox":{"/var/www/payever":{"guestpath":"/var/www/payever","hostpath":"/Users/a1/Sites/test/payever/vagrant/src","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"/Users/a1/Sites/test/payever/vagrant","disabled":false,"__vagrantfile":true}}}

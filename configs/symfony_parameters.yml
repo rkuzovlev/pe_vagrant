@@ -1,0 +1,11 @@
+parameters:
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: payever
+    database_user: payever
+    database_password: mypassword
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    secret: 088069f5c93ac86d9a32014bc0d149626bfd5afb

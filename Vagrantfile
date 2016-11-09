@@ -20,10 +20,11 @@ Vagrant.configure("2") do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   
-  config.vm.synced_folder "./src", "/var/www/payever"
+  config.vm.synced_folder "./src", "/var/www/payever", type: "nfs"
 
   config.vm.provider "virtualbox" do |vb|
-    vb.memory = "768"
+    # vb.memory = "2048"
+    vb.memory = "2560"
   end
   
   # View the documentation for the provider you are using for more
@@ -36,5 +37,5 @@ Vagrant.configure("2") do |config|
   #   push.app = "YOUR_ATLAS_USERNAME/YOUR_APPLICATION_NAME"
   # end
 
-  config.vm.provision "shell", path: "provisioning.sh"
+  config.vm.provision "shell", path: "provisioning.sh", privileged: false
 end

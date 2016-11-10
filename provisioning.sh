@@ -7,7 +7,8 @@ echo "Install software"
 sudo apt-get update
 # apt-get upgrade
 sudo apt-get install -y nginx nginx-extras 
-sudo apt-get install -y php5-cli php5-common php5-mysql php5-gd php5-fpm php5-cgi php5-fpm php-pear php5-mcrypt # php5-intl
+sudo apt-get install -y php5-cli php5-common php5-mysql php5-gd php5-fpm php5-cgi php5-fpm php-pear php5-mcrypt php5-imagick # php5-intl
+sudo php5enmod imagick
 sudo apt-get install -y mysql-server mysql-client
 sudo apt-get install -y git
 
@@ -84,5 +85,13 @@ php composer.phar install
 echo "copy symfony parameters"
 cp /vagrant/configs/symfony_parameters.yml /var/www/payever/app/config/parameters.yml
 
+php app/console doctrine:schema:update --force
+php app/console doctrine:fixtures:load -n
+
+cd /var/www/payever/frontend
+
 echo "Install node modules"
 sudo npm install -g gulp-cli
+npm install
+
+gulp build

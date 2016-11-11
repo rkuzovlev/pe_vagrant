@@ -29,7 +29,7 @@ echo "CREATE DATABASE IF NOT EXISTS payever CHARACTER SET utf8 COLLATE utf8_gene
 echo "GRANT ALL ON payever.* TO payever@localhost IDENTIFIED BY 'mypassword';" | mysql -uroot -hlocalhost -pmypassword
 
 echo "copy nginx configuration"
-sudo cp /vagrant/configs/nginx_payever.conf /etc/nginx/sites-available/payever.conf
+sudo cp /home/vagrant/configs/nginx_payever.conf /etc/nginx/sites-available/payever.conf
 
 if [ ! -f /etc/nginx/sites-enabled/payever.conf ]; then
 	echo "create link in sites-enabled if not exist"
@@ -47,15 +47,15 @@ if [ -f /etc/php5/fpm/pool.d/www.conf ]; then
 fi
 
 echo "copy php-fpm configuration"
-sudo cp /vagrant/configs/php_fpm_payever.conf /etc/php5/fpm/pool.d/payever.conf
+sudo cp /home/vagrant/configs/php_fpm_payever.conf /etc/php5/fpm/pool.d/payever.conf
 
 echo "set timezone"
 sudo sed -i "s/;date.timezone =.*/date.timezone = Europe\/Moscow/" /etc/php5/fpm/php.ini
 sudo sed -i "s/;date.timezone =.*/date.timezone = Europe\/Moscow/" /etc/php5/cli/php.ini
 
 echo "reload services"
-sudo service php5-fpm reload
-sudo service nginx reload
+sudo service php5-fpm restart
+sudo service nginx restart
 
 
 echo "create folders for Symfony"
@@ -83,8 +83,9 @@ echo "Install Symfony modules"
 php composer.phar install
 
 echo "copy symfony parameters"
-cp /vagrant/configs/symfony_parameters.yml /var/www/payever/app/config/parameters.yml
+cp /home/vagrant/configs/symfony_parameters.yml /var/www/payever/app/config/parameters.yml
 
+php app/console cache:clear
 php app/console doctrine:schema:update --force
 php app/console doctrine:fixtures:load -n
 
